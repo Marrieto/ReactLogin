@@ -15,7 +15,7 @@ class LoginSignup extends Component {
   }
 
   handleClick(e){
-    console.log(this.state.text)
+    this.state.clickHandler(this.state.text)
   }
 
   render() {
