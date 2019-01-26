@@ -1,22 +1,58 @@
 import React from 'react';
-import LoginHeader from './LoginHeader';
-import LoginForm from './LoginForm';
 import { useState } from 'react'
+import { Jumbotron, Button, ButtonToolbar, Container } from 'react-bootstrap'
 
+
+const pages = [
+  {
+    index: 0,
+    name: 'Login'
+  },
+  {
+    index: 1,
+    name: 'Logout'
+  },
+  {
+    index: 2,
+    name: 'Calculator'
+  },
+]
 
 
 function App () {
-  const [pageState, setPageState] = useState('Login')
+  const [pageState, setPageState] = useState(pages[0])
+
+  let pageSwitcher = (input) => {
+    let currentIndex 
+    if(input == 'next'){
+      currentIndex = pageState.index++
+    }
+    if(input == 'prev'){
+      currentIndex = pageState.index--
+      //setPageState(pages[Math.abs(currentIndex % pages.length)])
+    }
+
+    console.log(currentIndex);
+}
 
   return (
     <div className='App'>
-        <h1>{pageState}</h1>
-        <button onClick={() => pageState == 'Login' ? setPageState('Logout') : setPageState('Login')}>
-            Login or Logout
-        </button>
+      <Jumbotron>
+        <Container text-center>
+        <h1 className='text-center'>{pageState.name}</h1>
+        </Container>
+        <Container>
+        <ButtonToolbar>
+          <Button bsSize='large' className="info" bsStyle="large" block onClick={() => pageSwitcher('next')}>Next</Button>
+          <Button bsSize='small' bsStyle="danger" block onClick={() => pageSwitcher('prev')}>Previous</Button>
+        </ButtonToolbar>
+        </Container>
+      </Jumbotron>
     </div>
   )
 }
+
+
 
 export default App
 
